@@ -1,0 +1,24 @@
+version: "3.8"
+
+volumes:
+  postgres-data:
+  cache:
+
+services:
+  db:
+    image: postgres:14-alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_USER=test
+    ports:
+      - "5444:5432"
+
+  django:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    ports:
+      - "80:80"
