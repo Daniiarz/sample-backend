@@ -12,4 +12,6 @@ RUN poetry install
 
 COPY . .
 
+RUN ln -s $HOME/.poetry/bin/poetry /usr/local/bin/poetry
+
 CMD ["poetry run gunicorn --workers=3 aidanaBackend.wsgi:application -b 80"]
