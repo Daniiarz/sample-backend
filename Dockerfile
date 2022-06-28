@@ -8,10 +8,10 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 COPY poetry.lock poetry.lock
 COPY pyproject.toml pyproject.toml
 
+RUN poetry config virtualenvs.in-project true
 RUN poetry install
 
 COPY . .
 
-RUN ln -s $HOME/.poetry/bin/poetry /usr/local/bin/poetry
 
-CMD ["poetry run gunicorn --workers=3 aidanaBackend.wsgi:application -b 80"]
+CMD poetry run gunicorn aidanaBackend.wsgi:application --workers=3 -b :8080
